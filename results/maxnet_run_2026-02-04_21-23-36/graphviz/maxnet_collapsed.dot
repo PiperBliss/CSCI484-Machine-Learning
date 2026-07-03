@@ -1,0 +1,20 @@
+digraph MaxNet4Layer_Collapsed {
+  rankdir=LR;
+  splines=false;
+  nodesep=0.6;
+  ranksep=1.0;
+  fontname="Helvetica";
+
+  node [shape=record, fontname="Helvetica", fontsize=12];
+
+  in  [label="{Input|2: x=[x1,x2]}"];
+  l1  [label="{fc1 + ReLU|2 → 5}"];
+  l2  [label="{fc2 + ReLU|5 → 8}"];
+  l3  [label="{fc3 + ReLU|8 → 5}"];
+  out [label="{fc4 (linear)|5 → 1: y_hat}"];
+
+  in  -> l1  [label="W1,b1"];
+  l1  -> l2  [label="W2,b2"];
+  l2  -> l3  [label="W3,b3"];
+  l3  -> out [label="W4,b4"];
+}

@@ -1,0 +1,48 @@
+NETWORK OVERVIEW: 4-layer (2 -> h1 -> h2 -> h3 -> 1) with ReLU activations
+============================================================================================
+
+ASCII DIAGRAM
+--------------------------------------------------------------------------------------------
+  Inputs                    Hidden Layers (ReLU)                          Output
+  ------                    ---------------------                        ------
+  x = [x1,x2]   ->   fc1: 2 -> 5   ->   fc2: 5 -> 8   ->   fc3: 8 -> 5   ->   fc4: 5 -> 1
+
+TENSOR SHAPES (single sample)
+--------------------------------------------------------------------------------------------
+  x   : (2,)
+  z1  : (5,)   a1 = ReLU(z1)
+  z2  : (8,)   a2 = ReLU(z2)
+  z3  : (5,)   a3 = ReLU(z3)
+  z4  : (1,)      output (no activation)
+
+PARAMETER COUNTS (where do the weights and biases come from?)
+--------------------------------------------------------------------------------------------
+  fc1: W1 is [5 x 2],  b1 is [5]   -> params = 5*2 + 5 = 15
+  fc2: W2 is [8 x 5], b2 is [8] -> params = 8*5 + 8 = 48
+  fc3: W3 is [5 x 8], b3 is [5] -> params = 5*8 + 5 = 45
+  fc4: W4 is [1 x 5],  b4 is [1]      -> params = 1*5 + 1 = 6
+
+  TOTAL PARAMETERS: 114
+
+THE MATH (general form)
+--------------------------------------------------------------------------------------------
+Affine (a.k.a. linear layer with bias):
+  z = W x + b
+
+Inner product view (for one output neuron j):
+  z_j = sum_i (W_{j,i} * x_i) + b_j
+
+Activation (ReLU):
+  ReLU(t) = max(0, t)
+
+Layer-by-layer for this network:
+  z1 = W1 x + b1        a1 = ReLU(z1)
+  z2 = W2 a1 + b2       a2 = ReLU(z2)
+  z3 = W3 a2 + b3       a3 = ReLU(z3)
+  z4 = W4 a3 + b4       (final output)
+
+In PyTorch terms:
+  z1 = fc1(x); a1 = relu(z1)
+  z2 = fc2(a1); a2 = relu(z2)
+  z3 = fc3(a2); a3 = relu(z3)
+  z4 = fc4(a3)

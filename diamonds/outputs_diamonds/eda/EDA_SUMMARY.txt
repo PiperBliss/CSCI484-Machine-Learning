@@ -1,0 +1,24 @@
+Rows: 53940
+Cols: 10
+
+Columns & dtypes:
+  - carat: float64
+  - cut: str
+  - color: str
+  - clarity: str
+  - depth: float64
+  - table: float64
+  - price: int64
+  - x: float64
+  - y: float64
+  - z: float64
+
+Missing values (count):
+  (none)
+
+Duplicate rows: 146
+
+Wrote: eda_numeric_describe.csv
+Wrote: eda_corr_with_price_numeric.csv
+Wrote: eda_numeric_corr_heatmap.png, price_hist.png (if applicable), carat_vs_price.png (if applicable)
+Wrote: eda_head.csv
